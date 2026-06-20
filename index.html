@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Miłosz Kawczyński - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="nav">
+        <span class="nav__logo">Miłosz Kawczyński</span>
+        <div class="mode-toggle" id="modeToggle" role="switch" aria-checked="false" aria-label="Tryb: Design / Programming" tabindex="0">
+          <span class="mode-toggle__label">💡 Design</span>
+          <div class="mode-toggle__track">
+            <div class="mode-toggle__thumb"></div>
+          </div>
+          <span class="mode-toggle__label">Programming 💻</span>
+        </div>
+        <nav class="tabs" role="tablist">
+          <a href="#o-mnie"   class="tab tab--active" role="tab">O mnie</a>
+          <a href="#projekty" class="tab"              role="tab">Projekty</a>
+          <a href="#kontakt"  class="tab"              role="tab">Kontakt</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="section about" id="o-mnie">
+      <div class="container">
+        <div class="about__inner">
+
+          <div class="about__photo-wrap">
+            <div class="about__photo bounce-target">
+              <img src="me.png" alt="Miłosz Kawczyński">
+            </div>
+          </div>
+
+          <div class="about__text">
+            <p class="about__eyebrow">Cześć, jestem</p>
+            <h1 class="about__name">Miłosz Kawczyński</h1>
+            <p class="about__role">Game Designer | Gameplay Programmer | Pixel Artist</p>
+            <p class="about__bio">
+              Lorem Ipsum Dolor sit Amet
+            </p>
+            <div class="about__links">
+              <a href="mailto:twoj@email.com" class="btn btn--primary">Napisz do mnie</a>
+              <a href="#projekty" class="btn btn--ghost">Zobacz projekty</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section projects" id="projekty">
+      <div class="container">
+        <h2 class="section__title">Projekty</h2>
+        <div class="grid grid--design" id="grid-design"></div>
+        <div class="grid grid--programming" id="grid-programming"></div>
+      </div>
+    </section>
+
+    <section class="section posts" id="blog-section-design" style="display:none;">
+      <div class="container">
+        <h2 class="section__title">Posty</h2>
+        <div class="grid grid--blog grid--design" id="blog-grid-design"></div>
+      </div>
+    </section>
+
+    <section class="section posts" id="blog-section-programming" style="display:none;">
+      <div class="container">
+        <h2 class="section__title">Posty</h2>
+        <div class="grid grid--blog grid--programming" id="blog-grid-programming"></div>
+      </div>
+    </section>
+
+    <section class="section contact" id="kontakt">
+      <div class="container">
+        <h2 class="section__title">Kontakt</h2>
+        <p class="contact__lead">Lorem ipsum?</p>
+        <a href="mailto:twoj@email.com" class="contact__email">twoj@email.com</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span>2026 Miłosz Kawczyński</span>
+    </div>
+  </footer>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab');
+    const sections = document.querySelectorAll('section[id]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tabs.forEach(t => t.classList.remove('tab--active'));
+          const active = document.querySelector(`.tab[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('tab--active');
+        }
+      });
+    }, { threshold: 0.4 });
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+  <script src="character.js"></script>
+  <script src="projects.js"></script>
+<script>
+
+  const toggle = document.getElementById('modeToggle');
+
+  function setMode(mode) 
+  {
+    const isProg = mode === 'programming';
+    const gridDesign = document.getElementById('grid-design');
+    const gridProg   = document.getElementById('grid-programming');
+    const outGrid = isProg ? gridDesign : gridProg;
+    const inGrid  = isProg ? gridProg   : gridDesign;
+
+    outGrid.style.opacity = '0';
+    setTimeout(() => {
+      outGrid.style.display = 'none';
+      inGrid.style.display  = 'grid';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          inGrid.style.opacity = '1';
+        });
+      });
+    }, 350);
+
+    document.body.classList.toggle('mode--programming', isProg);
+    toggle.setAttribute('aria-checked', isProg);
+    localStorage.setItem('portfolio-mode', mode);
+
+    updateBlogSection('design');
+    updateBlogSection('programming');
+  }
+
+  const savedMode = localStorage.getItem('portfolio-mode') ?? 'design';
+  setMode(savedMode);
+
+  toggle.addEventListener('click', () => {
+    const next = document.body.classList.contains('mode--programming') ? 'design' : 'programming';
+    setMode(next);
+  });
+
+  toggle.addEventListener('keydown', e => {
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      toggle.click();
+    }
+  });
+
+  addProject({
+    name:   'Guiding Light',
+    image:  'games/guidingLight.png',
+    desc:   'A casual time-management game developed alongside its own game engine (including an editor, 2D physics engine, UI and much more). Written from scratch in modern C++ and DirectX 11.',
+    types:  ['engine', 'indie-game'],
+    event:  'released',
+    tags:   ['game-design', 'level-design', 'gameplay-programming', 'engine-programming', 'systems-programming'],
+    people: 8,
+    time:   '4 months',
+    link:   '/projekty/nazwa',
+  });
+
+  addProject({
+    name:   'Gravity Tag',
+    image:  'games/gravityTag.png',
+    desc:   'Fast-paced competitive 2D platformer built around an original dynamic perspective system and unique characters.',
+    types:  ['indie-game'],
+    event:  'in-production',
+    tags:   ['game-design', 'level-design', 'pixelart', 'gameplay-programming', 'systems-programming'],
+    people: 8,
+    time:   'Ongoing',
+    link:   '/projekty/drugi',
+  });
+
+  addProject({
+    name:   'Docino Mitty',
+    image:  'games/docinoMitty.png',
+    desc:   'Puzzle and strategy game built around placing "dominoes" to form a growing kingdom.',
+    types:  ['game-jam'],
+    event:  '48th edition GM(48)',
+    tags:   ['game-design', 'gameplay-programming', 'systems-programming'],
+    people: 3,
+    time:   '48 hours',
+    link:   '/projekty/drugi',
+  });
+
+  addProject({
+    name:   'Connectro',
+    image:  'games/connectro.png',
+    desc:   'Mobile puzzle game built around different tile patterns. The city is your canvas — each wall is a puzzle.',
+    types:  ['indie-game', 'mobile-game'],
+    event:  'in-production',
+    tags:   ['game-design', 'gameplay-programming', 'systems-programming'],
+    people: 3,
+    time:   'Ongoing',
+    link:   '/projekty/drugi',
+  });
+
+  addProject({
+    name:   'Guiding Light VR',
+    image:  'games/guidingLightVR.png',
+    desc:   'First-person reimagining of the original Guiding Light. Rebuilt from the ground up for virtual reality on Meta Quest headsets.',
+    types:  ['indie-game', 'vr-game'],
+    event:  'released',
+    tags:   ['game-design'],
+    people: 6,
+    time:   '4 months',
+    link:   '/projekty/drugi',
+  });
+
+  addProject({
+    name:   'Ricochet',
+    image:  'games/ricochet.png',
+    desc:   'Rykoszet To gra karciana w gangstersko mafijnych klimatach, gdzie główną mechaniką jest układanie stosu kart, od którego odbijają się pociski wystrzeliwane podczas rozgrywki.',
+    types:  ['board-game'],
+    event:  'in-production',
+    tags:   ['game-design'],
+    people: 2,
+    time:   'Ongoing',
+    link:   '/projekty/drugi',
+  });
+
+  addProject({
+    name:   'Honoratka',
+    image:  'games/honoratka.png',
+    desc:   'Lorem Ipsum',
+    types:  ['indie-game'],
+    event:  'Abandoned',
+    tags:   ['game-design', 'gameplay-programming'],
+    people: 5,
+    time:   '4 months',
+    link:   '/projekty/drugi',
+  });
+
+  addProject({
+    name:   'Code Lyoko inspired game',
+    image:  'games/codeLyoko.png',
+    desc:   'Lorem Ipsum',
+    types:  ['blog-post'],
+    event:  'Writing',
+    tags:   ['game-design'],
+    people: 0,
+    time:   'n/a',
+    link:   '/projekty/drugi',
+  });
+
+  addProject({
+    name:   'Bang! Enchancing board game expirience',
+    image:  'games/bang.png',
+    desc:   'Lorem Ipsum',
+    types:  ['blog-post', 'board-game'],
+    event:  'Writing',
+    tags:   ['game-design'],
+    people: 0,
+    time:   'n/a',
+    link:   '/projekty/drugi',
+  });
+
+  addProject({
+    name:   'Wibrujący Czarodzieje',
+    image:  'games/wibrującyCzarodzieje.png',
+    desc:   'Lorem Ipsum',
+    types:  ['game-jam'],
+    event:  'Writing',
+    tags:   ['game-design'],
+    people: 2,
+    time:   '6h',
+    link:   '/projekty/drugi',
+  });
+
+  addProject({
+    name:   'Tab Ula Rasa',
+    image:  'games/tabUlaRasa.png',
+    desc:   'A chaotic top-down strategy game in which you manage your own bee-garden. Manage their paths, aviod conflicts and control your world with a simple click of a Tab.',
+    types:  ['game-jam'],
+    event:  'Komiks Game Jam 2024',
+    tags:   ['game-design', 'gameplay-programming', 'systems-programming'],
+    people: 5,
+    time:   '48 hours',
+    link:   '/projekty/drugi',
+  });
+
+  addProject({
+    name:   'Foilaĝe',
+    image:  'games/foilage.png',
+    desc:   'You`re a truther. And you know that aliens exist. Everyone knows that. You just need to convince them a little. So you make crazy symbols in wheat yourself!',
+    types:  ['game-jam', 'engine'],
+    event:  'Komiks Game Jam 2025',
+    tags:   ['game-design', 'gameplay-programming', 'engine-programming', 'systems-programming'],
+    people: 4,
+    time:   '48 hours',
+    link:   '/projekty/drugi',
+  });
+
+  addProject({
+    name:   'Dolor Sit Amet',
+    image:  'games/dolorSitAmet.png',
+    desc:   'Lorem Ipsum',
+    types:  ['game-jam'],
+    event:  'Komiks Game Jam 2026',
+    tags:   ['game-design', 'gameplay-programming', 'systems-programming', 'pixelart'],
+    people: 2,
+    time:   '48 hours',
+    link:   '/projekty/drugi',
+  });
+
+  addProject({
+    name:   'Guiding Light Advance',
+    image:  'games/guidingLightAdvance.png',
+    desc:   'Lorem Ipsum',
+    types:  ['indie-game', 'engine'],
+    event:  'in-production',
+    tags:   ['game-design', 'gameplay-programming', 'systems-programming', 'engine-programming', 'pixelart'],
+    people: 1,
+    time:   'Ongoing',
+    link:   '/projekty/drugi',
+  });
+
+  addProject({
+    name:   'Shortness of Breath',
+    image:  'games/shortnessOfBreath.png',
+    desc:   'The tube that supplies you with oxygen severely limits your range of motion, and all you want to do is move around the hospital to regain your strength.',
+    types:  ['game-jam'],
+    event:  'Global Game Jam 2026 | UniŁódzki Jam',
+    tags:   ['game-design', 'level-design', 'gameplay-programming', 'systems-programming'],
+    people: 2,
+    time:   '48 hours',
+    link:   '/projekty/drugi',
+  });
+
+  addProject({
+    name:   'Photo Town',
+    image:  'games/photoTown.png',
+    desc:   'Photography game where you can change the photographer you control by taking a photo of another one',
+    types:  ['indie-game'],
+    event:  'Abandoned',
+    tags:   ['game-design', 'level-design', 'gameplay-programming', 'systems-programming', 'art'],
+    people: 7,
+    time:   '1 year',
+    link:   '/projekty/drugi',
+  });
+</script>
+
+</body>
+</html>

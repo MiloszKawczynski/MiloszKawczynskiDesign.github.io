@@ -11,26 +11,7 @@
 </head>
 
 <body>
-  <header class="header">
-    <div class="container">
-      <div class="nav">
-        <span class="nav__logo">Miłosz Kawczyński</span>
-        <div class="mode-toggle" id="modeToggle" role="switch" aria-checked="false" aria-label="Tryb: Design / Programming" tabindex="0">
-          <span class="mode-toggle__label">💡 Design</span>
-          <div class="mode-toggle__track">
-            <div class="mode-toggle__thumb"></div>
-          </div>
-          <span class="mode-toggle__label">Programming 💻</span>
-        </div>
-        <nav class="tabs" role="tablist">
-          <a href="#o-mnie"   class="tab tab--active" role="tab">O mnie</a>
-          <a href="#projekty" class="tab"              role="tab">Projekty</a>
-          <a href="#kontakt"  class="tab"              role="tab">Kontakt</a>
-        </nav>
-      </div>
-    </div>
-  </header>
-
+  <script src="_header.js"></script>
   <main>
 
     <section class="section about" id="o-mnie">
@@ -81,22 +62,7 @@
         <div class="grid grid--blog grid--programming" id="blog-grid-programming"></div>
       </div>
     </section>
-
-    <section class="section contact" id="kontakt">
-      <div class="container">
-        <h2 class="section__title">Kontakt</h2>
-        <p class="contact__lead">Lorem ipsum?</p>
-        <a href="mailto:twoj@email.com" class="contact__email">twoj@email.com</a>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <span>2026 Miłosz Kawczyński</span>
-    </div>
-  </footer>
+  <script src="_footer.js"></script>
 
   <script>
     const tabs = document.querySelectorAll('.tab');
@@ -118,9 +84,9 @@
 <script>
 
   const toggle = document.getElementById('modeToggle');
+  const savedMode = localStorage.getItem('portfolio-mode') ?? 'design';
 
-  function setMode(mode) 
-  {
+  function setMode(mode) {
     const isProg = mode === 'programming';
     const gridDesign = document.getElementById('grid-design');
     const gridProg   = document.getElementById('grid-programming');
@@ -131,27 +97,19 @@
     setTimeout(() => {
       outGrid.style.display = 'none';
       inGrid.style.display  = 'grid';
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          inGrid.style.opacity = '1';
-        });
-      });
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        inGrid.style.opacity = '1';
+      }));
     }, 350);
-
-    document.body.classList.toggle('mode--programming', isProg);
-    toggle.setAttribute('aria-checked', isProg);
-    localStorage.setItem('portfolio-mode', mode);
 
     updateBlogSection('design');
     updateBlogSection('programming');
   }
 
-  const savedMode = localStorage.getItem('portfolio-mode') ?? 'design';
   setMode(savedMode);
 
-  toggle.addEventListener('click', () => {
-    const next = document.body.classList.contains('mode--programming') ? 'design' : 'programming';
-    setMode(next);
+  document.addEventListener('modechange', (e) => {
+    setMode(e.detail.mode);
   });
 
   toggle.addEventListener('keydown', e => {
@@ -170,7 +128,7 @@
     tags:   ['game-design', 'level-design', 'gameplay-programming', 'engine-programming', 'systems-programming'],
     people: 8,
     time:   '4 months',
-    link:   '/projekty/nazwa',
+    link:   './projects/guidingLight/guidingLight.html',
   });
 
   addProject({
@@ -203,7 +161,7 @@
     desc:   'Mobile puzzle game built around different tile patterns. The city is your canvas — each wall is a puzzle.',
     types:  ['indie-game', 'mobile-game'],
     event:  'in-production',
-    tags:   ['game-design', 'gameplay-programming', 'systems-programming'],
+    tags:   ['game-design', 'gameplay-programming', 'systems-programming', 'pixelart'],
     people: 3,
     time:   'Ongoing',
     link:   '/projekty/drugi',
@@ -349,7 +307,7 @@
     event:  'Abandoned',
     tags:   ['game-design', 'level-design', 'gameplay-programming', 'systems-programming', 'art'],
     people: 7,
-    time:   '1 year',
+    time:   '2 years',
     link:   '/projekty/drugi',
   });
 </script>

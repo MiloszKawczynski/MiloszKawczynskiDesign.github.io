@@ -77,9 +77,7 @@ function addProject({ name, image = null, desc, types = [], event, tags = [], pe
 
   const peopleStr = people === 1 || people === 'Solo'
     ? 'Solo'
-    : typeof people === 'number'
-      ? `${people} ${people >= 5 ? 'osób' : 'osoby'}`
-      : people;
+    : `${people} people`
 
   const thumb = image
     ? `<img src="${image}" alt="${name}" />`

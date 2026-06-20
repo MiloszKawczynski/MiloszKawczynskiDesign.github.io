@@ -355,6 +355,44 @@ body.mode--programming .contributions-also--programming {
   opacity: 1;
 }
 
+.credits-table__highlight td {
+  font-weight: 600;
+  color: var(--c-accent);
+}
+
+.credits-table__highlight td:first-child a {
+  color: var(--c-accent);
+}
+
+body.mode--programming .credits-table__highlight td {
+  color: var(--c-light);
+}
+
+body.mode--programming .credits-table__highlight td:first-child a {
+  color: var(--c-light);
+}
+
+.contrib {
+  border-left: 2px solid var(--c-light);
+  padding-left: 1rem;
+  margin-bottom: 1.5rem;
+  transition: border-color 0.4s ease;
+}
+
+.contrib__title {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+  margin-bottom: 0.4rem;
+  transition: color 0.4s ease;
+}
+
+body.mode--programming .contrib { border-left-color: #2a2a4a; }
+body.mode--programming .contrib__title { color: var(--c-mid); }
+
 body.mode--programming .project-title          { color: var(--c-light); }
 body.mode--programming .project-quote          { color: #8888aa; border-left-color: var(--c-mid); }
 body.mode--programming .project-section__title { color: var(--c-light); border-bottom-color: #2a2a4a; }

@@ -1,4 +1,4 @@
-const CHARACTER_SRC  = './ragdoll.png';
+const CHARACTER_SRC = new URL('./ragdoll.png', document.currentScript.src).href;
 const CHARACTER_WIDTH = 32;
 const CHARACTER_HEIGHT = 64;
 const BOUNCE_CLASS   = 'bounce-target';

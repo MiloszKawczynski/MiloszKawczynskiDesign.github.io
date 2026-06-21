@@ -338,14 +338,14 @@ body.mode--programming .card-wrap:hover .card {
   border-radius: 3px;
 }
 
-.card__type--indie-game  { background: #2a1a4a; color: #b09de0; }
-.card__type--game-jam    { background: #7a3a10; color: #f5c09a; }
+.card__type--indie-game  { background: #372857; color: #e39dff; }
+.card__type--game-jam    { background: #812d2d; color: #fac28d; }
 .card__type--art         { background: #2a4a1a; color: #a0d890; }
-.card__type--engine      { background: #1a2a4a; color: #90b0e0; }
-.card__type--blog-post   { background: #4a3a1a; color: #e0c890; }
-.card__type--mobile-game { background: #1a3a4a; color: #80d0e8; }
-.card__type--vr-game     { background: #3a1a3a; color: #d090d0; }
-.card__type--board-game  { background: #3a1a3a; color: #d090d0; }
+.card__type--engine      { background: #27475c; color: #a0e1ff; }
+.card__type--blog-post   { background: #7e5400; color: #ffefa6; }
+.card__type--mobile-game { background: #851162; color: #ffa8bb; }
+.card__type--vr-game     { background: #851162; color: #ffa8bb; }
+.card__type--board-game  { background: #851162; color: #ffa8bb; }
 
 .card__event {
   font-size: 0.65rem;
@@ -408,12 +408,12 @@ body.mode--programming .card-wrap:hover .card {
   flex-shrink: 0;
 }
 
-.card__tag--game-design          { background: #2a1a4a; color: #b09de0; }
-.card__tag--level-design         { background: #1a3a22; color: #7ecf8e; }
-.card__tag--pixelart             { background: #3a1a10; color: #e0906a; }
-.card__tag--gameplay-programming { background: #0e2a42; color: #6aace0; }
-.card__tag--engine-programming   { background: #1a2a42; color: #7a9ed0; }
-.card__tag--systems-programming  { background: #3a1010; color: #e07a7a; }
+.card__tag--game-design          { background: #c3da8f; color: #42521c; }
+.card__tag--level-design         { background: #c3da8f; color: #42521c; }
+.card__tag--pixelart             { background: #c3da8f; color: #42521c; }
+.card__tag--gameplay-programming { background: #7ca0cf; color: #122d3f; }
+.card__tag--engine-programming   { background: #7ca0cf; color: #122d3f; }
+.card__tag--systems-programming  { background: #7ca0cf; color: #122d3f; }
 
 .card__footer {
   border-top: 1px solid var(--c-light);

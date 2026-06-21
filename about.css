@@ -1,0 +1,99 @@
+.about-main {
+  padding: 5rem 0;
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+}
+
+.about-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.about-photo-col {
+  display: flex;
+  justify-content: center;
+}
+
+.about-photo {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--c-surface);
+}
+
+.about-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+
+.about-eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+  margin-bottom: 0.5rem;
+}
+
+.about-name {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 700;
+  color: var(--c-dark);
+  line-height: 1.05;
+  margin-bottom: 0.5rem;
+  transition: color 0.4s ease;
+}
+
+.about-role {
+  font-size: 1rem;
+  color: var(--c-text-muted);
+  margin-bottom: 2rem;
+  letter-spacing: 0.03em;
+}
+
+.about-bio {
+  margin-bottom: 2.5rem;
+}
+
+.about-bio p {
+  font-size: 1rem;
+  color: var(--c-text);
+  line-height: 1.8;
+  font-weight: 300;
+  margin-bottom: 1rem;
+  max-width: 58ch;
+  transition: color 0.4s ease;
+}
+
+.about-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+body.mode--programming .about-name { color: var(--c-light); }
+body.mode--programming .about-bio p { color: #c0c0d8; }
+
+@media (max-width: 800px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .about-photo {
+    width: 220px;
+    aspect-ratio: 3 / 4;
+    margin: 0 auto;
+  }
+
+  .about-name { text-align: center; }
+  .about-eyebrow, .about-role { text-align: center; }
+  .about-links { justify-content: center; }
+}

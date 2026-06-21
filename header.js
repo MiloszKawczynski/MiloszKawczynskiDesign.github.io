@@ -14,7 +14,7 @@
           <span class="mode-toggle__label">Programming 💻</span>
         </div>
         <nav class="tabs" role="tablist">
-          <a href="${BASE}/index.html#o-mnie"   class="tab" role="tab">O mnie</a>
+          <a href="about.html"   class="tab" role="tab">O mnie</a>
           <a href="${BASE}/index.html#projekty" class="tab" role="tab">Projekty</a>
           <a href="${BASE}/index.html#kontakt"  class="tab" role="tab">Kontakt</a>
         </nav>

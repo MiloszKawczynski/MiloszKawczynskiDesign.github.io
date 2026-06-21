@@ -1,5 +1,10 @@
 const CHARACTER_SRC = new URL('./ragdoll.png', document.currentScript.src).href;
-const CHARACTER_WIDTH = 32;
+const CHARACTER_WALK = new URL('./ragdollWalk.gif', document.currentScript.src).href;
+const CHARACTER_POINTS = new URL('./ragdollPoints.gif', document.currentScript.src).href;
+const CHARACTER_POINTSLOOP = new URL('./ragdollPointsLoop.gif', document.currentScript.src).href;
+const CHARACTER_DRAG = new URL('./ragdollDrag.gif', document.currentScript.src).href;
+const CHARACTER_THROW = new URL('./ragdollThrow.png', document.currentScript.src).href;
+const CHARACTER_WIDTH = 64;
 const CHARACTER_HEIGHT = 64;
 const BOUNCE_CLASS   = 'bounce-target';
 const FRICTION       = 0.98;
@@ -7,6 +12,7 @@ const RESTITUTION    = 0.72;
 const GRAVITATION    = 0.81;
 const SHAKE_MS       = 380;
 const SHAKE_CLASS    = 'is-shaking';
+const CHARACTER_POINTS_DURATION = 600;
 
 (function () 
 {
@@ -36,15 +42,17 @@ const SHAKE_CLASS    = 'is-shaking';
 
   document.body.appendChild(el);
 
-  let x = 110;
-  let y = 110;
+  let x = 0;
+  let y = window.innerHeight;
   let vx = 0, vy = 0;
-  let onGround = false;
 
-  let dragging   = false;
   let dragOffX   = 0, dragOffY = 0;
   let prevMouseX = 0, prevMouseY = 0;
   let velHistX   = [], velHistY = [];
+  let state      = "idle"
+  let lastClientX = 0;
+  let lastClientY = 0;
+  let swing = 0;
   const VEL_SAMPLES = 1;
 
   let rafId = null;
@@ -53,7 +61,7 @@ const SHAKE_CLASS    = 'is-shaking';
   {
     x = nx; 
     y = ny;
-    el.style.transform = `translate(${Math.round(x)}px,${Math.round(y)}px)`;
+    el.style.transform = `translate(${x}px,${y}px)`;
   }
 
   function shake(target) 
@@ -94,7 +102,7 @@ const SHAKE_CLASS    = 'is-shaking';
     return obstacles;
   }
 
-  function resolveCollisions() 
+  function resolveCollisions(doShake = true) 
   {
     const hw = CHARACTER_WIDTH;
     const hh = CHARACTER_HEIGHT;
@@ -132,7 +140,7 @@ const SHAKE_CLASS    = 'is-shaking';
           vy *= -RESTITUTION;
           if (Math.abs(vy) < RESTITUTION) 
           {
-            onGround = true;
+            state = "idle";
             vy = 0;
           }
           hit = true;
@@ -167,15 +175,15 @@ const SHAKE_CLASS    = 'is-shaking';
         if (minD === dBottom){ y -= dBottom; vy *= -RESTITUTION; }
         if (minD === dTop)   
         { 
-          y -= dTop - 1; 
+          y -= dTop; 
           vy *= -RESTITUTION; 
           if (Math.abs(vy) < RESTITUTION) 
           {
-            onGround = true;
+            state = "idle";
           }
         }
 
-        shake(o.el);
+        if (doShake) shake(o.el);
         hit = true;
       }
     });
@@ -192,7 +200,7 @@ const SHAKE_CLASS    = 'is-shaking';
     for (const o of obstacles)
     {
       let cx = x + hw / 2;
-      let fy = y + hh + GRAVITATION;
+      let fy = y + hh + 1;
 
       if (o.isViewport)
       {
@@ -204,7 +212,7 @@ const SHAKE_CLASS    = 'is-shaking';
       else
       {
         let inX = cx > o.left && cx < o.right;
-        let inY = fy > o.top  && fy < o.bottom;
+        let inY = fy >= o.top  && fy < o.bottom;
 
         if (inX && inY) 
         {
@@ -216,22 +224,105 @@ const SHAKE_CLASS    = 'is-shaking';
     return true;
   }
 
+  function changeSprite(sprite)
+  {
+    if (img.src != sprite)
+    {
+      img.src = sprite;
+    }
+  }
+
   function tick() 
   {
-    if (!dragging) 
+    if (state == "drag")
     {
-      if (checkIfInTheAir()) 
+      changeSprite(CHARACTER_DRAG);
+      swing = Math.sin(Date.now() / 150) * 16;
+      img.style.transform = `rotate(${swing}deg)`;
+    }
+
+    if (state == "idle")
+    {
+      if (checkIfInTheAir())
       {
-        onGround = false;
+        state = "throw";
       }
 
       vx *= FRICTION;
-      vy *= FRICTION;
+      x += vx;
 
-      if (!onGround)
+      resolveCollisions(false);
+
+      if (Math.abs(vx) < FRICTION * 0.5) { vx = 0; }
+
+      setPos(x, y);
+
+      state = "walk";
+    }
+
+    if (state == "walk")
+    {
+      if (checkIfInTheAir())
       {
-        vy += GRAVITATION;
+        state = "throw";
       }
+
+      let target;
+
+      if (x < window.innerWidth / 2)
+      {
+        target = window.innerWidth * 0.1
+      }
+      else
+      {
+        target = window.innerWidth * 0.9
+      }
+
+      if (Math.abs(target - x) > 3)
+      {
+        vx = Math.sign(target - x);
+        x += vx;
+        img.style.transform = vx > 0 ? 'scaleX(1)' : 'scaleX(-1)';
+      }
+      else
+      {
+        img.style.transform = target < window.innerWidth * 0.5 ? 'scaleX(1)' : 'scaleX(-1)';
+        state = "points";
+      }
+
+      resolveCollisions(false);
+
+      setPos(x, y);
+
+      changeSprite(CHARACTER_WALK);
+    }
+
+    if (state === "points")
+    {
+      if (checkIfInTheAir())
+      {
+        state = "throw";
+      }
+
+      if (img.src != CHARACTER_POINTSLOOP)
+      {
+        changeSprite(CHARACTER_POINTS);
+        setTimeout(() => 
+        {
+          changeSprite(CHARACTER_POINTSLOOP);
+        }, CHARACTER_POINTS_DURATION);
+      }
+
+      resolveCollisions(false);
+
+      setPos(x, y);
+    }
+
+    if (state == "throw")
+    {
+      vx *= FRICTION;
+      vy *= FRICTION;
+      vy += GRAVITATION;
 
       x += vx;
       y += vy;
@@ -242,7 +333,24 @@ const SHAKE_CLASS    = 'is-shaking';
       if (Math.abs(vy) < FRICTION * 0.5) { vy = 0; }
 
       setPos(x, y);
+
+      changeSprite(CHARACTER_THROW);
+
+      const spd = Math.sqrt(vx * vx + vy * vy);
+      const targetSwing = (Math.atan2(vx, vy) * 180 / Math.PI - 90) * -1;
+      swing = swing + spd / 100 * (targetSwing - swing);
+
+      if (swing < 90 || swing > 270)
+      {
+        img.style.transform = `rotate(${swing}deg) scaleX(-1)`;
+      }
+      else
+      {
+        img.style.transform = `rotate(${swing - 180}deg) scaleX(1)`;
+      }
     }
+
+
     rafId = requestAnimationFrame(tick);
   }
 
@@ -251,25 +359,27 @@ const SHAKE_CLASS    = 'is-shaking';
   function onPointerDown(e) 
   {
     e.preventDefault();
-    dragging = true;
-    onGround = false;
+    state = "drag";
     el.style.cursor = 'grabbing';
     dragOffX = e.clientX - x;
-    dragOffY = e.clientY - y;
+    dragOffY = e.clientY + window.scrollY - y;
     prevMouseX = e.clientX;
-    prevMouseY = e.clientY;
+    prevMouseY = e.clientY + window.scrollY;
     velHistX = []; velHistY = [];
     el.setPointerCapture(e.pointerId);
+
+    lastClientX = e.clientX;
+    lastClientY = e.clientY;
   }
 
   function onPointerMove(e) 
   {
-    if (!dragging) return;
+    if (state != "drag") return;
     const nx = e.clientX - dragOffX;
-    const ny = e.clientY - dragOffY;
+    const ny = e.clientY + window.scrollY - dragOffY;
 
     velHistX.push(e.clientX - prevMouseX);
-    velHistY.push(e.clientY - prevMouseY);
+    velHistY.push(e.clientY + window.scrollY - prevMouseY);
     if (velHistX.length > VEL_SAMPLES) 
     { 
       velHistX.shift(); 
@@ -277,19 +387,34 @@ const SHAKE_CLASS    = 'is-shaking';
     }
 
     prevMouseX = e.clientX;
-    prevMouseY = e.clientY;
+    prevMouseY = e.clientY + window.scrollY;
+
+    lastClientX = e.clientX;
+    lastClientY = e.clientY;
+
     setPos(nx, ny);
   }
 
   function onPointerUp(e) 
   {
-    if (!dragging) return;
-    dragging = false;
+    if (state != "drag") return;
+    state = "throw";
     el.style.cursor = 'grab';
 
     const avg = arr => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0;
     vx = avg(velHistX) * 1.6;
     vy = avg(velHistY) * 1.6;
+
+    swing = (Math.atan2(vx, vy) * 180 / Math.PI - 90) * -1;
+
+    if (swing < 90 || swing > 270)
+    {
+      img.style.transform = `rotate(${swing}deg) scaleX(-1)`;
+    }
+    else
+    {
+      img.style.transform = `rotate(${swing - 180}deg) scaleX(1)`;
+    }
 
     e.preventDefault();
   }
@@ -303,6 +428,14 @@ const SHAKE_CLASS    = 'is-shaking';
   {
     x = Math.min(x, window.innerWidth  - CHARACTER_WIDTH);
     y = Math.min(y, window.innerHeight - CHARACTER_HEIGHT);
+  });
+
+  window.addEventListener('scroll', () =>
+  {
+    if (state != "drag") return;
+    const nx = lastClientX - dragOffX;
+    const ny = lastClientY + window.scrollY - dragOffY;
+    setPos(nx, ny);
   });
 
 })();

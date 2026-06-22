@@ -16,6 +16,11 @@ const CHARACTER_POINTS_DURATION = 600;
 
 (function () 
 {
+  if (window.innerWidth < 1920 || window.innerHeight < 1080) 
+  {
+    return;
+  }
+
   const el = document.createElement('div');
   el.id = 'character';
   el.style.cssText = `
@@ -42,8 +47,11 @@ const CHARACTER_POINTS_DURATION = 600;
 
   document.body.appendChild(el);
 
-  let x = 0;
-  let y = window.innerHeight;
+  const savedX = parseFloat(sessionStorage.getItem('ragdoll-x'));
+  const savedY = parseFloat(sessionStorage.getItem('ragdoll-y'));
+
+  let x = isNaN(savedX) ? 0 : savedX;
+  let y = isNaN(savedY) ? window.innerHeight : savedY;
   let vx = 0, vy = 0;
 
   let dragOffX   = 0, dragOffY = 0;
@@ -62,6 +70,8 @@ const CHARACTER_POINTS_DURATION = 600;
     x = nx; 
     y = ny;
     el.style.transform = `translate(${x}px,${y}px)`;
+    sessionStorage.setItem('ragdoll-x', x);
+    sessionStorage.setItem('ragdoll-y', y);
   }
 
   function shake(target) 

@@ -9,7 +9,7 @@
   --c-text-muted:   #6a6a9a;
   --c-accent:       var(--c-mid);
   --font-body:    'Inter', system-ui, sans-serif;
-  --font-display: 'Playfair Display', Georgia, serif;
+  --font-display: 'Nunito', Georgia, serif;
   --container-w:  1400px;
   --radius:       4px;
 }

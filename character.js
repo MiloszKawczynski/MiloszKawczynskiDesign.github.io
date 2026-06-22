@@ -14,7 +14,7 @@ const GRAVITATION    = 0.81;
 const SHAKE_MS       = 380;
 const SHAKE_CLASS    = 'is-shaking';
 const CHARACTER_POINTS_DURATION = 600;
-const CHARACTER_STANDINGUP_DURATION = 600;
+const CHARACTER_STANDINGUP_DURATION = 550;
 
 (function () 
 {
@@ -48,6 +48,17 @@ const CHARACTER_STANDINGUP_DURATION = 600;
   el.appendChild(img);
 
   document.body.appendChild(el);
+
+  let footerHeight = 0;
+
+  function updateFooterHeight()
+  {
+    const footer = document.querySelector('.footer');
+    footerHeight = footer ? footer.offsetHeight : 0;
+  }
+
+  updateFooterHeight();
+  window.addEventListener('resize', updateFooterHeight);
 
   const savedX = parseFloat(sessionStorage.getItem('ragdoll-x'));
   const savedY = parseFloat(sessionStorage.getItem('ragdoll-y'));
@@ -88,6 +99,7 @@ const CHARACTER_STANDINGUP_DURATION = 600;
 
   function getObstacles() 
   {
+    
     const obstacles = [];
 
     obstacles.push(
@@ -95,7 +107,7 @@ const CHARACTER_STANDINGUP_DURATION = 600;
       left:   0,
       top:    window.scrollY,
       right:  window.innerWidth,
-      bottom: window.scrollY + window.innerHeight,
+      bottom: window.scrollY + window.innerHeight - footerHeight,
       isViewport: true,
       el: null,
     });

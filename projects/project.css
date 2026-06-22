@@ -449,8 +449,16 @@ body.mode--programming .credits-table td       { color: #c0c0d8; border-bottom-c
   grid-template-columns: repeat(3, 1fr);
 }
 
+.project-gallery--card {
+  grid-template-columns: repeat(4, 1fr);
+}
+
 .project-gallery--portrait .project-gallery__item img {
-  aspect-ratio: 9 / 16;
+  aspect-ratio: 582 / 1215;
+}
+
+.project-gallery--card .project-gallery__item img {
+  aspect-ratio: 732 / 1098;
 }
 
 @media (max-width: 900px) {

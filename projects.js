@@ -52,7 +52,34 @@ function updateBlogSection(mode)
   section.style.display = grid.children.length > 0 ? '' : 'none';
 }
 
-function addProject({ name, image = null, desc, types = [], event, tags = [], people, time, link })
+function initCardSlideshow(cardWrap, cover, images)
+{
+  if (!images || images.length === 0) return;
+
+  const img = cardWrap.querySelector('.card__thumb img');
+  if (!img) return;
+
+  const allImages = [cover, ...images];
+  let intervalId  = null;
+  let index       = 0;
+
+  cardWrap.addEventListener('mouseenter', () => {
+    index = 1;
+    img.src = allImages[index];
+    intervalId = setInterval(() => {
+      index = (index + 1) % allImages.length;
+      img.src = allImages[index];
+    }, 800);
+  });
+
+  cardWrap.addEventListener('mouseleave', () => {
+    clearInterval(intervalId);
+    intervalId = null;
+    img.src = cover;
+  });
+}
+
+function addProject({ name, cover = null, images = [], desc, types = [], event, tags = [], people, time, link })
 {
   const artTags  = tags.filter(t => ART_TAGS.includes(t));
   const techTags = tags.filter(t => TECH_TAGS.includes(t));
@@ -79,10 +106,10 @@ function addProject({ name, image = null, desc, types = [], event, tags = [], pe
 
   const peopleStr = people === 1 || people === 'Solo'
     ? 'Solo'
-    : `${people} people`
+    : `${people} people`;
 
-  const thumb = image
-    ? `<img src="${image}" alt="${name}" />`
+  const thumb = cover
+    ? `<img src="${cover}" alt="${name}" />`
     : `<div class="card__thumb-placeholder">podgląd</div>`;
 
   const buildCard = (visibleTags, isBlog = false) => `
@@ -116,30 +143,24 @@ function addProject({ name, image = null, desc, types = [], event, tags = [], pe
 
   const isBlog = types.includes('blog-post');
 
+  const insertCard = (gridId, visibleTags, blog) => {
+    const grid = document.getElementById(gridId);
+    if (!grid) return;
+    grid.insertAdjacentHTML('beforeend', buildCard(visibleTags, blog));
+    if (cover && images.length > 0) {
+      const cardWrap = grid.lastElementChild;
+      initCardSlideshow(cardWrap, cover, images);
+    }
+  };
+
   if (isBlog)
   {
-    if (hasDesign)
-    {
-      const grid = document.getElementById('blog-grid-design');
-      if (grid) { grid.insertAdjacentHTML('beforeend', buildCard(artTags, true)); updateBlogSection('design'); }
-    }
-    if (hasProgramming)
-    {
-      const grid = document.getElementById('blog-grid-programming');
-      if (grid) { grid.insertAdjacentHTML('beforeend', buildCard(techTags, true)); updateBlogSection('programming'); }
-    }
+    if (hasDesign)      { insertCard('blog-grid-design',      artTags,  true); updateBlogSection('design'); }
+    if (hasProgramming) { insertCard('blog-grid-programming', techTags, true); updateBlogSection('programming'); }
   }
   else
   {
-    if (hasDesign)
-    {
-      const grid = document.getElementById('grid-design');
-      if (grid) grid.insertAdjacentHTML('beforeend', buildCard(artTags));
-    }
-    if (hasProgramming)
-    {
-      const grid = document.getElementById('grid-programming');
-      if (grid) grid.insertAdjacentHTML('beforeend', buildCard(techTags));
-    }
+    if (hasDesign)      insertCard('grid-design',      artTags,  false);
+    if (hasProgramming) insertCard('grid-programming', techTags, false);
   }
 }

@@ -70,8 +70,8 @@
               </div>
               <div class="project-gallery__item bounce-target">
                 <div class="shake-target">
-                  <a href="gravityTag4.png" target="_blank">
-                    <img src="gravityTag4.png" alt="Screenshot 4" />
+                  <a href="gravityTag6.png" target="_blank">
+                    <img src="gravityTag6.png" alt="Screenshot 6" />
                   </a>
                 </div>
               </div>
@@ -84,25 +84,236 @@
               </div>
               <div class="project-gallery__item bounce-target">
                 <div class="shake-target">
-                  <a href="gravityTag6.png" target="_blank">
-                    <img src="gravityTag6.png" alt="Screenshot 6" />
+                  <a href="gravityTag7.png" target="_blank">
+                    <img src="gravityTag7.png" alt="Screenshot 7" />
                   </a>
                 </div>
               </div>
             </div>
           </section>
 
+          <section class="project-section">
+            <h2 class="project-section__title">Gameplay</h2>
+            <p>Each round of a match is structured as a chase — one player is the tagger, one is the runner. The gravity system periodically shifts the game's perspective between a standard platformer view and a top-down overhead view, changing which axes and obstacles are relevant at any moment. Characters each have distinct move sets, and the levels are designed around the perspective shifts, rewarding players who can plan routes that work across both views.</p>
+
+            <div class="feature-columns">
+              <ul class="feature-list">
+                <li>Dynamic platformer ↔ top-down perspective shifts</li>
+                <li>Distinct playable characters with unique abilities</li>
+                <li>Local multiplayer or AI enemy chases</li>
+                <li>Online multiplayer via rollback netcode</li>
+              </ul>
+
+              <ul class="feature-list">
+                <li>Asymmetric tagger / runner chase structure</li>
+                <li>Singleplayer time-attack maps</li>
+                <li>Multiple levels designed around dual-view navigation</li>
+                <li>High skill ceiling with tactical depth</li>
+              </ul>
+            </div>
+        </section>
+
           <section class="project-section" id="my-contributions">
             <h2 class="project-section__title">My Contributions</h2>
 
             <div class="contrib contrib--programming">
+              <p>As the project leader and one of the two programmers, I implemented most of the systems and almost the entire gameplay.</p>
               <h3 class="contrib__title">Systems Programming</h3>
-              <p>Robiłem system generatywny statków i AI</p>
+              <h4>Gameplay systems</h4>
+              <p><span class="strong">A chase system with a dynamic perspective</span> - A game system based on changing gravity for 2 players with the option to adjust the rules and parameters of the game from the menu.</p>
+              <p><span class="strong">Time-attack map system</span> - Single-player gameplay system based on breaking time records with recording and a leaderboard.</p>
+
+              <div class="project-gallery project-gallery--2">
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <video autoplay muted loop playsinline>
+                      <source src="1v1.mp4" type="video/mp4" />
+                    </video>
+                    <span class="project-hero-media__caption">Chase gameplay.</span>
+                  </div>
+                </div>
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <video autoplay muted loop playsinline>
+                      <source src="timeAttack.mp4" type="video/mp4" />
+                    </video>
+                    <span class="project-hero-media__caption">Time-Attack gameplay.</span>
+                  </div>
+                </div>
+              </div>
+
+              <h4>Tools</h4>
+              <p><span class="strong">Analytical system</span> - A system that collects 1v1 and time-attack match data and sends it to a database. Supported by an additional program written in Python to visualize position, gravity mode, and catch times in chases.</p>
+              <p><span class="strong">Menu and UI system</span> - Used to create dynamic menus, lobbies, character selection, map selection, and in-game UI. Automatically detects device changes (controller and keyboard).</p>
+
+              <div class="project-gallery project-gallery--2">
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <img src="analitic.gif" alt="Catch heatmap Tool." />
+                    <span class="project-hero-media__caption">Catch heatmap Tool.</span>
+                  </div>
+                </div>
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <video autoplay muted loop playsinline>
+                      <source src="menu.mp4" type="video/mp4" />
+                    </video>
+                    <span class="project-hero-media__caption">Menu created in UI system.</span>
+                  </div>
+                </div>
+              </div>
+
+              <p><span class="strong">Level editor</span> - A built-in editor allows to create 1v1 and time attack maps. An option to create symmetrical map layouts inspired by the Aseprite system. This allows to place decorative elements and instantly test created levels.</p>
+              <p><span class="strong">Dialog editor and display</span> - A system that allows to conveniently create visual novel scenes in many languages ​​with support for editing visual accents, a glossary and a live view of the dialogue.</p>
+
+              <div class="project-gallery project-gallery--2">
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <video autoplay muted loop playsinline>
+                      <source src="levelEditor.mp4" type="video/mp4" />
+                    </video>
+                    <span class="project-hero-media__caption">Level Editor.</span>
+                  </div>
+                </div>
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <video autoplay muted loop playsinline>
+                      <source src="dialogs.mp4" type="video/mp4" />
+                    </video>
+                    <span class="project-hero-media__caption">Dialogs Editor.</span>
+                  </div>
+                </div>
+              </div>
+
+              <h4>Enemy AI</h4>
+              <p>A system consisting of 4 separate types of behavior:</p>
+              <div class="feature-columns">
+                <ul class="feature-list">
+                  <li>Top-Down Chasing</li>
+                  <li>Top-Down Evading</li>
+                </ul>
+                <ul class="feature-list">
+                  <li>Platformer Chasing</li>
+                  <li>Platformer Evading</li>
+                </ul>
+              </div>
+              <p>Each type of behavior required a separate set of subsystems and parameters. In the case of the Top-Down view:</p>
+              <p><span class="strong">Top-Down Evasion Heatmap</span> - It creates a heatmap of how valuable escape targets are to specific cells on the map. It uses data such as:</p>
+              <div class="feature-columns">
+                <ul class="feature-list">
+                  <li>Distance from the opponent</li>
+                  <li>Number of walls between the agent and the opponent</li>
+                  <li>Enemy line of sight</li>
+                  <li>Proximity to the wall</li>
+                </ul>
+                <ul class="feature-list">
+                  <li>Proximity to an obstacle that can be vault from</li>
+                  <li>Time to change of the gravity</li>
+                  <li>Cell vertical position</li>
+                  <li>Weights that change the meaning of specific parameters</li>
+                </ul>
+              </div>
+              <p><span class="strong">Top-Down Path finding</span> - Uses the A-Star to find a path from the hero to a selected point. Used for both chasing and escaping.</p>
+              <p><span class="strong">Top-Down Movement</span> - Based on the path found by A-Star, it selects the appropriate input for the character. It treats the designated path as a template but adjusts movement to make sensible use of special abilities, vault obstacles, and avoid running right up against walls.</p>
+              <p>Based on these three functions, in a top-down view, when the agent is fleeing, it assesses the interest in escape cells and selects one whose value is above the appropriate threshold and maps a route to it. When chasing, it maps a route directly to the opponent. Then, based on the route, it executes moves.</p>
+
+              <div class="project-gallery project-gallery--2">
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <video autoplay muted loop playsinline>
+                      <source src="topDownChasing.mp4" type="video/mp4" />
+                    </video>
+                    <span class="project-hero-media__caption">Top-Down Chasing AI.</span>
+                  </div>
+                </div>
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <video autoplay muted loop playsinline>
+                      <source src="topDownEvading.mp4" type="video/mp4" />
+                    </video>
+                    <span class="project-hero-media__caption">Top-Down Evading AI.</span>
+                  </div>
+                </div>
+              </div>
+
+              <p>In the platform view, AI algorithms are significantly more complex due to the dynamic movement system. The height, and therefore the distance, of the jump depends on the velocity at the moment of the jump, and the force of the vault from an obstacle depends on how close the agent is to its center at the moment of vault. For these reasons, among others, creating a network of connections and executing movement are difficult.</p>
+              <p><span class="strong">Platformer Nodes Connections Generation</span> - A graph is created in which connections are checked for various inputs and input speeds for each node. Not only are connections recorded, but also the output speed.</p>
+              <p><span class="strong">Platformer Evasion Heatmap</span> - Similarly to Top-Down, points are assessed, but only those directly on the ground are taken into account.</p>
+              <p><span class="strong">Platformer Path finding</span> - A-Star finds path, taking into account the input and output speeds of each node. The calculated path includes information about the input performed to reach the next node.</p>
+              <p><span class="strong">Platformer Movement</span> - Using the data stored in the path, the agent selects the appropriate input for the character. The calculated path contains only data between nodes located on the ground. When the character is airborne, it continuously analyzes landing points and selects the one closest to continue the path.</p>
+
+              <div class="project-gallery project-gallery--2">
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <video autoplay muted loop playsinline>
+                      <source src="platformerChasing.mp4" type="video/mp4" />
+                    </video>
+                    <span class="project-hero-media__caption">Platformer Chasing AI.</span>
+                  </div>
+                </div>
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <video autoplay muted loop playsinline>
+                      <source src="platformerEvading.mp4" type="video/mp4" />
+                    </video>
+                    <span class="project-hero-media__caption">Platformer Evading AI.</span>
+                  </div>
+                </div>
+              </div>
+
+              <h4>Additional</h4>
+              <p><span class="strong">Implementation of 3rd party libraries:</span></p>
+              <div class="feature-columns">
+                <ul class="feature-list">
+                  <li><a href="https://gizmo199.itch.io/fauxton3d">Fauxton3D by Gizmo199</a></li>
+                  <li><a href="https://github.com/nommiin/ImGui_GM">ImGui by nommin</a></li>
+                </ul>
+                <ul class="feature-list">
+                  <li><a href="https://codeberg.org/offalynne/Input">Input by Juju Adams</a></li>
+                  <li><a href="https://www.fmod.com">Fmod</a></li>
+                </ul>
+              </div>
+
+              <p><span class="strong">Visual effects:</span></p>
+              <div class="feature-columns">
+                <ul class="feature-list">
+                  <li>Afterimages</li>
+                  <li>Particles</li>
+                  <li>Catch indicator</li>
+                  <li>Vault indicator</li>
+                </ul>
+                <ul class="feature-list">
+                  <li>God rays</li>
+                  <li>Dynamic sprite manipulation</li>
+                  <li>Dynamic led pannels reacting to gravitation and winning player with program to generate code for led patterns from sprites</li>
+                </ul>
+              </div>
+
+              <p><span class="strong">Others:</span></p>
+              <div class="feature-columns">
+                  <ul class="feature-list">
+                    <li>Dynamic camera system</li>
+                  </ul>
+                  <ul class="feature-list">
+                    <li>Control remapping system</li>
+                  </ul>
+              </div>
             </div>
 
             <div class="contrib contrib--programming">
               <h3 class="contrib__title">Gameplay Programming</h3>
-              <p>Robiłem gameplay</p>
+              <p>In addition to the gameplay systems mentioned above, I also implemented, among others:</p>
+              <div class="feature-columns">
+                <ul class="feature-list">
+                  <li>Top-Down movement and collision</li>
+                  <li>Platformer movement and collision</li>
+                  <li>Platformer momentum based physics</li>
+                </ul>
+                <ul class="feature-list">
+                  <li>Consumable resources active abilities that accelerate the character</li>
+                  <li>Passive or non-resource-consuming abilities that provide additional movement options</li>
+                </ul>
+              </div>
             </div>
 
             <div class="contrib contrib--design">
@@ -147,7 +358,7 @@
                   <td>Design & Programming</td>
                 </tr>
                 <tr>
-                  <td><a href="" target="_blank" rel="noopener">Robert Kotliński</a></td>
+                  <td><a href="https://www.linkedin.com/in/robert-kotliński-8699b72b6/" target="_blank" rel="noopener">Robert Kotliński</a></td>
                   <td>Marketing & Community Management</td>
                 </tr>
                 <tr>
@@ -167,7 +378,7 @@
                   <td>2D Art</td>
                 </tr>
                 <tr>
-                  <td><a href="" target="_blank" rel="noopener">Marta Świderek</a></td>
+                  <td><a href="https://linktr.ee/DumDemon_Keira" target="_blank" rel="noopener">Marta Świderek</a></td>
                   <td>2D Art & Character Design</td>
                 </tr>
                 <tr>
@@ -189,6 +400,10 @@
                 <a href="https://discord.gg/jkyzsvQ69u" class="sidebar-link" target="_blank" rel="noopener">
                   <span class="sidebar-link__icon"><i class="fa-brands fa-discord"></i></span>
                   <span>Join Discord Server</span>
+                </a>
+                <a href="https://youtu.be/gwUB4TRRLyc?si=b2f1Kgwgmat_z0Nv" class="sidebar-link" target="_blank" rel="noopener">
+                  <span class="sidebar-link__icon"><i class="fa-brands fa-youtube"></i></span>
+                  <span>Watch Documentary on YT</span>
                 </a>
               </div>
             </div>

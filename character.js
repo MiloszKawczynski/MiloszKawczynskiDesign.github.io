@@ -114,7 +114,21 @@ const CHARACTER_STANDINGUP_DURATION = 550;
 
     document.querySelectorAll('.' + BOUNCE_CLASS).forEach(t => 
     {
+      let hidden = false;
+      let node = t.parentElement;
+      while (node && node !== document.body) {
+        const style = getComputedStyle(node);
+        if (style.overflow === 'hidden' || style.overflow === 'clip') {
+          const pr = node.getBoundingClientRect();
+          if (pr.height < 1) { hidden = true; break; }
+        }
+        node = node.parentElement;
+      }
+      if (hidden) return;
+
       const r = t.getBoundingClientRect();
+      if (r.width === 0 || r.height === 0) return;
+
       obstacles.push(
       {
         left:   r.left,

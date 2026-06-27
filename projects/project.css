@@ -364,7 +364,7 @@ body.mode--programming .contributions-also--design {
 
 body.mode--programming .contrib--programming,
 body.mode--programming .contributions-also--programming {
-  max-height: 2000px;
+  max-height: 9000px;
   opacity: 1;
   padding-left: 1rem;
   border-left-width: 2px;

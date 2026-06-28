@@ -318,17 +318,267 @@
 
             <div class="contrib contrib--design">
               <h3 class="contrib__title">Game Design</h3>
-              <p>Robiłem design</p>
+              <p>As the project leader, I was responsible for coming up with the game idea, ensuring the gameplay supported the desired vision, and setting and adjusting physics parameters and character stats and skills.</p>
+              <h4>Idea</h4>
+              <p>The idea to create a game based on tag arose from inspiration from the professional sport of World Chase Tag, and from an attempt to combine such an activity with the atmosphere of sports anime. The combination of the top-down and platform views emerged during prototype development and testing to see which view best captured the vision of the game of tag. Each view had its advantages, and from this emerged the idea of ​​combining both.</p>
+              <p>This combination is not accidental and has been adapted to play a specific role in the game during chases:</p>
+              <p><span class="strong">Top-Down</span> is a view with a much greater emphasis on strategy. In this view, movement is much simpler and less dynamic. To maintain high speed, you need to plan your route carefully, carefully manage your special ability, and sequentially vault from obstacles. Because this view makes it much easier to reach every part of the arena, you also need to be strategic about where to be when gravity changes.</p>
+              <p><span class="strong">Platformer</span> is a view where player skill reigns supreme. Thanks to the momentum based movement system, with a little practice, players can achieve very high speeds and quickly reach higher positions. Most passive skills, which grant additional movement abilities, also have a much greater impact in this view.</p>
+              <p>Because these views intertwine, players can't rely on just one strategy. Even if, in platform mode, one player is completely unable to reach their opponent due to a lack of skill, gravity will shift in a moment, and the colossal advantage will instantly vanish.</p>
+
+              <div class="project-gallery project-gallery--2">
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <video autoplay muted loop playsinline>
+                      <source src="strategy.mp4" type="video/mp4" />
+                    </video>
+                    <span class="project-hero-media__caption">Outwitting the opponent.</span>
+                  </div>
+                </div>
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <video autoplay muted loop playsinline>
+                      <source src="skillCeiling.mp4" type="video/mp4" />
+                    </video>
+                    <span class="project-hero-media__caption">Outmatching the opponent.</span>
+                  </div>
+                </div>
+              </div>
+
+              <h4>Close Calls</h4>
+              <p>The most important experience I wanted to provide players as a designer is "close calls", situations where opponents are very close together for a period of time during a chase, which can result in either a catch or a narrow escape. Having observed numerous games during public events, I can confirm that we've managed to deliver this experience and that it evokes intense emotions, thanks to several well-thought-out measures:</p>
+              <p><span class="strong">Level Structure</span> - Levels are closed, so distances cannot be increased indefinitely. Additionally, maps have many connections, allowing for shorter distances.</p>
+              <p><span class="strong">Catch System</span> - It's designed so that catches don't happen automatically when players are in range; the player still has to press the appropriate button. This means that each catch is slightly delayed depending on the player's reflexes, prolonging the situation.</p>
+              <p><span class="strong">Active Skills</span> - Currently, there are four active skills in the game, and each character has one of them. During development, I noticed that certain skills caused a given character to lose significantly more often, so I redesigned these skills. Since then, each skill serves to speed up the character in different ways:</p>
+              <div class="feature-columns">
+                <ul class="feature-list">
+                  <li>Sprint - gradually increases maximum speed</li>
+                  <li>Dash - instantly doubles current speed</li>
+                </ul>
+                <ul class="feature-list">
+                  <li>Float - instantly sets a slightly higher speed and removes friction</li>
+                  <li>Peelout - charge in place to launch at high speed in new direction</li>
+                </ul>
+              </div>
+              <p>Thanks to this decision, each character can maintain similar speeds during the game, but in different ways, so when the characters are in close proximity and their speeds are similar, they can run next to each other for a longer time, maintaining the tension.</p>
+              <p><span class="strong">Dynamic Camera</span> - The final element that heightens the excitement of such situations is the dynamic camera, which zooms in on the runners when they are close together. This creates the impression that they are so close to being caught. When the runner manages to increase the distance, the camera zooms out, giving them, literally, room to breathe.</p>
+
+              <div class="project-gallery project-gallery--1">
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <video autoplay muted loop playsinline>
+                      <source src="closeCall.mp4" type="video/mp4" />
+                    </video>
+                    <span class="project-hero-media__caption">Examples of a close call situations.</span>
+                  </div>
+                </div>
+              </div>
+
+              <h4>Vaults</h4>
+              <p>One of the most important mechanics enriching the chases is the vaulting system. Arenas feature obstacles that can be launched from by pressing the vault key while in range. The closer a character is to the center of the obstacle, the greater their speed during the launch. This not only adds another element of dexterity and a way to gain speed, but above all, it is a universal tool that works in both perspectives. Depending on the situation and the player's skill, vaulting can be used in many different ways:</p>
+              <div class="feature-columns">
+                <ul class="feature-list">
+                  <li>To gain speed</li>
+                  <li>To maintain speed</li>
+                  <li>To make a sharp turn/U-turn</li>
+                </ul>
+                <ul class="feature-list">
+                  <li>To gain height</li>
+                  <li>To slow down a fall</li>
+                  <li>To extend a jump</li>
+                </ul>
+              </div>
+
+              <div class="project-gallery project-gallery--2">
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <video autoplay muted loop playsinline>
+                      <source src="topDownVaults.mp4" type="video/mp4" />
+                    </video>
+                    <span class="project-hero-media__caption">Examples of top-down vaults.</span>
+                  </div>
+                </div>
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <video autoplay muted loop playsinline>
+                      <source src="platformerVaults.mp4" type="video/mp4" />
+                    </video>
+                    <span class="project-hero-media__caption">Examples of platformer vaults.</span>
+                  </div>
+                </div>
+              </div>
+
+              <h4>Characters</h4>
+              <p>Each character is distinguished by a selection of three distinct elements: active skill, passive skills, and stats. All elements for a given character are chosen to support a specific playstyle.</p>
+              <p>Some passive skills add additional movement capabilities, such as:</p>
+              <div class="feature-columns">
+                <ul class="feature-list">
+                  <li>Wall Jump</li>
+                  <li>Air Dash</li>
+                  <li>Tripple Jump</li>
+                </ul>
+              </div>
+              <p>and some of them serve as some kind of help:</p>
+              <div class="feature-columns">
+                <ul class="feature-list">
+                  <li>Auto Catch</li>
+                  <li>No slowdown when running uphill</li>
+                  <li>Always perfect vault</li>
+                </ul>
+              </div>
+              <p>This approach is inspired by Sonic, where some characters often provides an easier playstyle. However, this isn't a one-sided improvement. As in Sonic, at the expense of some of the easier features, there are other changes. For example, Miriam, a character who, in Gravity Tag, has the ability to automatically catch, but this is at the expense of a shorter catch range and stats that increase launch power. This makes her a popular choice for beginners who are not comfortable with catching, as well as those who prefer a risky playstyle, reaching high speeds to smash into opponents at the cost of missing and losing all momentum by hitting a wall.</p>
+
             </div>
 
             <div class="contrib contrib--design">
               <h3 class="contrib__title">Level Design</h3>
-              <p>Robiłem poziomy</p>
+              <p>Currently, Gravity Tag has 10 1v1 arenas and one time attack map.</p>
+              <h4>Arenas</h4>
+              <p>The first fully successful, fun, and game-design-friendly level was "Basic". Wondering why this arena worked while other layouts didn't, I decided to thoroughly analyze the components and use them to build subsequent arenas.</p>
+              <p>For a top-down view, the components are:</p>
+              <div class="feature-columns">
+                <ul class="feature-list">
+                  <li>Vault Chains - Obstacles arranged in a line to connect vaults</li>
+                  <li>Shortcut - Straight paths among others, without obstacles</li>
+                </ul>
+                <ul class="feature-list">
+                  <li>Slalom - Curved path</li>
+                  <li>Niche - Recess that widens the path and provides a place to hide</li>
+                </ul>
+              </div>
+
+              <div class="project-gallery project-gallery--1">
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <img src="topDown.png" alt="Top-Down level elements" />
+                    <span class="project-hero-media__caption">Top-Down level elements.</span>
+                  </div>
+                </div>
+              </div>
+
+              <p>For a platform view, I separate the elements into vertical ones:</p>
+              <div class="feature-columns">
+                <ul class="feature-list">
+                  <li>Staircase - Allows to get higher by jumping</li>
+                </ul>
+                <ul class="feature-list">
+                  <li>Shaft - A vertical passage where player can get higher with vaults</li>
+                </ul>
+              </div>
+              
+              <div class="project-gallery project-gallery--1">
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <img src="vertical.png" alt="Platformer vertical level elements" />
+                    <span class="project-hero-media__caption">Platformer vertical level elements.</span>
+                  </div>
+                </div>
+              </div>
+
+              <p>And horizontal:</p>
+              <div class="feature-columns">
+                <ul class="feature-list">
+                  <li>Highway - The path at the very bottom that allows you to gain speed by simply running</li>
+                </ul>
+                <ul class="feature-list">
+                  <li>High-Highway - A path at the top that allows you to gain speed through precise jumps</li>
+                </ul>
+              </div>
+
+              <div class="project-gallery project-gallery--1">
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <img src="horizontal.png" alt="Platformer horizontal level elements" />
+                    <span class="project-hero-media__caption">Platformer horizontal level elements.</span>
+                  </div>
+                </div>
+              </div>
+              
+              <p>Some elements automatically translate between views, for example, the staircase automatically creates slaloms and niches. When designing, I arrange obstacles to avoid situations where an obstacle is only useful in one specific view. The elements shown above were used to create the remaining nine arenas, arranging them in various configurations.</p>
+              <h4>Metro Chase</h4>
+              <p>Metro Chase is the first time-attack map and serves as a tutorial on the physics behind Gravity Tag.</p>
+              <p>At the beginning, there's a top-down section demonstrating how to avoid walls and how vaulting works.</p>
+
+              <div class="project-gallery project-gallery--1">
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <video autoplay muted loop playsinline>
+                      <source src="timeAttack1.mp4" type="video/mp4" />
+                    </video>
+                    <span class="project-hero-media__caption">Walls and vaults.</span>
+                  </div>
+                </div>
+              </div>
+
+              <p>After the gravity change, there is a wall. When the player attempts to jump over it, they will fall perfectly onto the slope and gain a lot of speed, teaching them how to accelerate downhill and translate vertical speed into horizontal speed. If then the player misses the jump or jumps without timing, they will crash into the wall.</p>
+              
+              <div class="project-gallery project-gallery--1">
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <video autoplay muted loop playsinline>
+                      <source src="timeAttack2.mp4" type="video/mp4" />
+                    </video>
+                    <span class="project-hero-media__caption">Acceleration and timing jumps.</span>
+                  </div>
+                </div>
+              </div>
+
+              <p>The rest of the map is modeled after levels from 2D Sonic games, where the upper path is faster but it's easy to fall down. In my layout, player can use vaults on the lower paths to get to the upper ones.</p>
+
+              <div class="project-gallery project-gallery--1">
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <video autoplay muted loop playsinline>
+                      <source src="timeAttack3.mp4" type="video/mp4" />
+                    </video>
+                    <span class="project-hero-media__caption">Vaults to upper routes.</span>
+                  </div>
+                </div>
+              </div>
+
+              <p>At the very end, gravity changes and the map once again tests the player's skill in avoiding walls.</p>
+
+              <div class="project-gallery project-gallery--1">
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <video autoplay muted loop playsinline>
+                      <source src="timeAttack4.mp4" type="video/mp4" />
+                    </video>
+                    <span class="project-hero-media__caption">End of the map.</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
             <div class="contrib contrib--design">
               <h3 class="contrib__title">Pixel Art</h3>
-              <p>Robiłem pixelart</p>
+              <p>Additionally, I made templates for almost all character animations and animated the first two characters based on these templates.</p>
+
+              <div class="project-gallery project-gallery--1">
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <img src="sprites.png" alt="Sprites" />
+                    <span class="project-hero-media__caption">Sprites and Animations.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="project-gallery project-gallery--2 project-gallery--square">
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <img src="AdamLeap10.gif" alt="Adam leap animation" />
+                    <span class="project-hero-media__caption">Adam leap animation.</span>
+                  </div>
+                </div>
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <img src="CleaRun10.gif" alt="Clea run animation" />
+                    <span class="project-hero-media__caption">Clea run animation.</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
             <p class="contributions-also contributions-also--design">
@@ -404,6 +654,10 @@
                 <a href="https://youtu.be/gwUB4TRRLyc?si=b2f1Kgwgmat_z0Nv" class="sidebar-link" target="_blank" rel="noopener">
                   <span class="sidebar-link__icon"><i class="fa-brands fa-youtube"></i></span>
                   <span>Watch Documentary on YT</span>
+                </a>
+                <a href="https://docs.google.com/presentation/d/1hnLJTdf7iDQxboNmprNUFTwKDKwLMYa_/edit?usp=sharing&ouid=110740999287795344014&rtpof=true&sd=true" class="sidebar-link" target="_blank" rel="noopener">
+                  <span class="sidebar-link__icon"><i class="fa-solid fa-person-chalkboard"></i></span>
+                  <span>See Pitch Deck</span>
                 </a>
               </div>
             </div>

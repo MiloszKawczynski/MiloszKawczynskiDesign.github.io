@@ -484,6 +484,15 @@ body.mode--programming .strong {
   padding: 0;
 }
 
+.feature-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--c-text-muted);
+  font-size: 0.9rem;
+}
+
 .feature-list li {
   position: relative;
   padding-left: 1rem;
@@ -496,13 +505,22 @@ body.mode--programming .strong {
   word-break: break-word;
 }
 
-.feature-list li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: var(--c-text-muted);
-  font-size: 0.9rem;
+ul.feature-list {
+    list-style: none;
+    padding: 0;
+}
+
+ul.feature-list li::before {
+    content: "•";
+}
+
+ol.feature-list {
+    list-style: decimal;
+    padding-left: 1.5rem;
+}
+
+ol.feature-list li::before {
+    content: none;
 }
 
 .project-section a {
@@ -562,6 +580,161 @@ body.mode--programming .contributions-also--design {
   margin-top: 0;
   padding-top: 0;
   border-top: none;
+}
+
+.media-with-text {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.media-with-text__content {
+  flex: 1;
+}
+
+.media-with-text__content p {
+  margin-bottom: 0;
+}
+
+.audio-player {
+  flex-shrink: 0;
+  width: 220px;
+}
+
+.doc-section {
+    display: block;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    padding-bottom: 0.5rem;
+    background: var(--c-surface);
+    border: 1px solid var(--c-light);
+    border-radius: var(--radius);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+    width: 100%;
+    max-height: 800px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.3s ease;
+}
+
+.doc-section h1,
+.doc-section h2,
+.doc-section h3,
+.doc-section p,
+.doc-section li {
+    font-family: var(--font-body), system-ui, sans-serif;
+}
+
+.doc-section > h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--c-dark);
+    margin: 0 0 1.5rem 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--c-light);
+}
+
+.doc-section > h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--c-dark);
+    margin: 2rem 0 1rem 0; 
+}
+
+.doc-section > h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--c-accent);
+    margin: 1.25rem 0 0.5rem 0;
+}
+
+.doc-section > p {
+    font-size: 0.95rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--c-text);
+    margin: 0 0 1rem 0;
+}
+
+.doc-section > ul, 
+.doc-section > ol {
+    margin: 0 0 1.5rem 1.25rem;
+    padding: 0;
+}
+
+.doc-section li {
+    font-size: 0.95rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--c-text);
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 0;
+}
+
+.doc-section li::before {
+    content: none !important;
+}
+
+.doc-section ul {
+    list-style-type: disc;
+}
+
+.doc-section ol {
+    list-style-type: decimal;
+}
+
+.doc-section > *:last-child {
+    margin-bottom: 0 !important;
+}
+
+.doc-section > ul:last-child,
+.doc-section > ol:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+body.mode--programming .doc-section {
+    background: #16162a;
+    border-color: #2a2a4a;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+}
+body.mode--programming .doc-section > h1,
+body.mode--programming .doc-section > h2 {
+    color: var(--c-light);
+}
+body.mode--programming .doc-section > h1 {
+    border-bottom-color: #2a2a4a;
+}
+body.mode--programming .doc-section > p,
+body.mode--programming .doc-section li {
+    color: #c0c0d8;
+}
+
+.doc-section::-webkit-scrollbar {
+    width: 8px;
+}
+.doc-section::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 0 var(--radius) var(--radius) 0;
+}
+.doc-section::-webkit-scrollbar-thumb {
+    background: var(--c-light);
+    border-radius: 4px;
+}
+.doc-section::-webkit-scrollbar-thumb:hover {
+    background: var(--c-text-muted);
+}
+/* Scrollbar dla trybu programming */
+body.mode--programming .doc-section::-webkit-scrollbar-track {
+    background: #16162a;
+}
+body.mode--programming .doc-section::-webkit-scrollbar-thumb {
+    background: #2a2a4a;
+}
+body.mode--programming .doc-section::-webkit-scrollbar-thumb:hover {
+    background: #66668f;
 }
 
 @media (max-width: 900px) {

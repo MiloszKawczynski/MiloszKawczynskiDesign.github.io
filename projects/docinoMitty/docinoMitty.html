@@ -101,8 +101,8 @@
           <section class="project-section" id="my-contributions">
             <h2 class="project-section__title">My Contributions</h2>
 
-            <p>As one of two programmers, I created some of the systems and some of the gameplay:</p>
             <div class="contrib contrib--programming">
+              <p>As one of two programmers, I created some of the systems and some of the gameplay:</p>
               <h3 class="contrib__title">Systems Programming</h3>
               <div class="feature-columns">
                 <ul class="feature-list">
@@ -138,7 +138,115 @@
 
             <div class="contrib contrib--design">
               <h3 class="contrib__title">Game Design</h3>
-              <p>Robiłem design</p>
+              <h4>Idea</h4>
+              <p>
+                My team joined the game jam a few hours after it started, so I was the only person involved in the concept process. After exploring a dozen ideas, I came up with the idea of ​​basing the game on dominoes. Dominoes appealed to me in this context because it allowed for equivalent exchange while simultaneously being not so equivalent.
+                <i>
+                  For example,
+                  <br>        
+                  <span style="display:inline-flex;gap:10px;align-items:center;vertical-align:middle;">
+                    <svg width="32" height="64" viewBox="0 0 32 64" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="1" y="1" width="30" height="62" rx="4" fill="white" stroke="black" stroke-width="2"/>
+                      <line x1="1" y1="32" x2="31" y2="32" stroke="black" stroke-width="2"/>
+
+                      <circle cx="8" cy="8" r="2.5"/>
+                      <circle cx="16" cy="16" r="2.5"/>
+                      <circle cx="24" cy="24" r="2.5"/>
+
+                      <circle cx="8" cy="40" r="2.5"/>
+                      <circle cx="24" cy="40" r="2.5"/>
+                      <circle cx="8" cy="56" r="2.5"/>
+                      <circle cx="24" cy="56" r="2.5"/>
+                    </svg>
+
+                    <svg width="32" height="64" viewBox="0 0 32 64" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="1" y="1" width="30" height="62" rx="4" fill="white" stroke="black" stroke-width="2"/>
+                      <line x1="1" y1="32" x2="31" y2="32" stroke="black" stroke-width="2"/>
+
+                      <circle cx="8" cy="8" r="2.5"/>
+                      <circle cx="24" cy="8" r="2.5"/>
+                      <circle cx="8" cy="16" r="2.5"/>
+                      <circle cx="24" cy="16" r="2.5"/>
+                      <circle cx="8" cy="24" r="2.5"/>
+                      <circle cx="24" cy="24" r="2.5"/>
+
+                      <circle cx="16" cy="48" r="2.5"/>
+                    </svg>
+                  </span>
+                  <br>
+                  dominoes are equal in terms of their sum of values, but they are not identical.
+                </i> 
+                This idea not only fits the theme but also introduces an interesting mechanism on which I decided to build the rest of the game.
+              </p>
+              <p>After considering several ways to use this mechanic, I settled on something like a city builder, where tiles not only have a value but also a type. This further strengthened the basic mechanism, as exchanges could be based on value and the tile type could change.</p>
+              <h4>GDD</h4>
+              <p>After finally deciding to use this mechanic, I created a very simple GDD to present the assumptions to the rest of the team. The GDD was originally written in Polish and in .md format. It was translated and adapted to HTML for the purposes of this portfolio.</p>
+              <section class="doc-section bounce-target" id="gdd">
+
+                <h1>Dominatro - Equivalent Exchange</h1>
+                <h2>Gameplay</h2>
+                <h3>General assumptions</h3>
+                <p>A city builder that involves placing dominoes, creating arrangements that improve the value of tiles so that they can be exchanged for tiles of the same total value. Tiles have their types. There should be many types, and each should bring something new and unique to the mechanics. Game concept is very content-based.</p>
+                <h3>Examples of tile types</h3>
+                <ul>
+                  <li>Houses - Placing houses next to each other in the number &gt;= 3 of the same value increases the value</li>
+                  <li>Crops - If they are near water, they grow and their value increases each turn, but when they cross the threshold, they are destroyed.</li>
+                  <li>Water - The higher the value, the more turbulent the water, up to a certain point it has a better effect on crops, after exceeding it it can flood and destroy other tiles</li>
+                  <li>Road - Its value depends on how long it is</li>
+                  <li>Trees - Same as Crops</li>
+                  <li>Sawmill - If connected to a forest by a road, it lowers the value of the forest by 2 and enriches all adjacent tiles by 1</li>
+                  <li>Mill - Its value is equal to how turbulent the water next to it is</li>
+                </ul>
+                <h3>Gameplay Loop</h3>
+                <ol>
+                  <li>Player start with a pool of domino tiles</li>
+                  <li>Player place them up</li>
+                  <li>Player create a combos that increases the value of the placed tiles</li>
+                  <li>Player trade one tile for another, probably a new, interesting one (we need to trigger the "Oh, what does this do?" reaction)</li>
+                  <li>Repeat.</li>
+                </ol>
+                <p>Through combos, the value of tiles on the player's side constantly increases, which means that you can exchange tiles while maintaining the exchange equality, and at the same time, the player continues to gain more tiles.</p>
+                <h3>Tile Placing Rules</h3>
+                <p>The tiles would be placed similarly to dominoes. In dominoes, the values ​​of the tiles should match, but in our case, it would be better if the matching were based on type rather than value. This allows for greater freedom in placement and less reliance on randomness. Additionally, in our case it is enough for one tile to fit, the fact that other tiles already in place do not fit does not exclude the possibility of placing the tile.</p>
+                <h2>Graphics</h2>
+                <p>Domino tiles should consist of a base and a graphic placed on top of that base. The graphic should represent its value visually, e.g., the number of houses, the number of crop cuts, the number of trees, etc.</p>
+                <h2>Inspiration</h2>
+                <ul>
+                  <li>Domino</li>
+                  <li>Grow Island (Browser Game) - The feeling that the island you're creating is growing and coming to life.</li>
+                  <li>Smörr Wörld (Game jam game made by friends from the science club) - The feeling of an expanding area of play.</li>
+                </ul>
+                
+              </section>
+
+              <p>Some elements from the prepared document changed during prototyping and production. The example tiles served as the basis for creating the final ones, and their changes were made to improve synergies, create combos, and avoid player frustration.</p>
+              <p>The gameplay loop presented in GDD proved too slow and limiting after testing, so it was slightly changed to speed up the player's island development and the acquisition of new tiles. In the final game, it looks more like this:</p>
+              <section class="doc-section bounce-target" id="gdd">
+                <ol>
+                  <li>Player start with a pool of domino tiles</li>
+                  <li>Player place them up</li>
+                  <li>Player create a combos that increases the value of the placed tiles</li>
+                  <li>After all domioas are place a trade appears</li>
+                  <li>Player trade any number of tiles they place and receive a larger pool of tiles with the same total value in return. New tiles appear at designated point thresholds</li>
+                  <li>Repeat</li>
+                </ol>
+              </section>
+            </div>
+
+            <div class="contrib contrib--design">
+              <h3 class="contrib__title">Sound Design</h3>
+              <p>To enhance the feeling of actually playing with dominoes, I decided to add rich, satisfying sounds to almost every action. Additionally, most sounds have their pitch modified randomly or to fit the context of the action, adding variety to the soundscape.</p>
+
+              <div class="project-gallery project-gallery--1">
+                <div class="project-hero-media bounce-target">
+                  <div class="shake-target">
+                    <video controls>
+                      <source src="sound.mp4" type="video/mp4" />
+                    </video>
+                    <span class="project-hero-media__caption">Examples of sound design.</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <p class="contributions-also contributions-also--design">
@@ -194,6 +302,12 @@
                 <a href="https://youtu.be/bI15ViYqkZU?si=pP1L4heP3SijxLSh" class="sidebar-link" target="_blank" rel="noopener">
                   <span class="sidebar-link__icon"><i class="fa-brands fa-youtube"></i></span>
                   <span>Watch Let's play on YT</span>
+                </a>
+              </div>
+              <div class="sidebar-links">
+                <a href="Docino Mitty GDD.md" class="sidebar-link" target="_blank" rel="noopener">
+                  <span class="sidebar-link__icon"><i class="fa-solid fa-file-text"></i></span>
+                  <span>Download original GDD</span>
                 </a>
               </div>
             </div>

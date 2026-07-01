@@ -737,6 +737,14 @@ body.mode--programming .doc-section::-webkit-scrollbar-thumb:hover {
     background: #66668f;
 }
 
+body.mode--programming .contrib--programming + .contrib--programming {
+  margin-top: 1.5rem;
+}
+
+body.mode--programming .contrib--programming {
+  margin-bottom: 1.5rem;
+}
+
 @media (max-width: 900px) {
   .project-layout  { grid-template-columns: 1fr; }
   .project-sidebar { position: static; }

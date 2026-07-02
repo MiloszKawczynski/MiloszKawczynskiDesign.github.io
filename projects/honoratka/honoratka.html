@@ -24,7 +24,7 @@
           <h1 class="project-title">Honoratka</h1>
 
           <blockquote class="project-quote">
-            lorem ipsum
+            In the 1950s and 1960s, frequenting the "Honoratka" café wasn't just about snobbery and fashion – it was an existential obligation for every actor, director, and student to find at least five minutes every day for a quick coffee and a homemade cake made by Mrs. Stefania Brudzińska.
           </blockquote>
 
           <div class="project-hero-media bounce-target">
@@ -32,7 +32,7 @@
               <video autoplay muted loop playsinline>
                 <source src="honoratka.mp4" type="video/mp4" />
               </video>
-              <span class="project-hero-media__caption">lorem ipsum.</span>
+              <span class="project-hero-media__caption">Gameplay video.</span>
             </div>
           </div>
 
@@ -40,8 +40,8 @@
 
           <section class="project-section" id="about">
             <h2 class="project-section__title">About the game</h2>
-            <p>lorem ipsum</p>
-            <p>dolor sit amet</p>
+            <p>Honoratka is a casual simulation game about running a café in Łódź. In the game, the player, playing as Stefania, the café's owner, not only ensures the quality of food served to her customers but also indirectly develops Polish cinema by allowing outstanding filmmakers and rising stars to meet and collaborate on projects.</p>
+            <p>In Honoratka, the player seats artists at tables so they can create memorable works; strong characters cannot be allowed to clash. Player learns the stories of outstanding filmmakers and cinematic masterpieces. The game was created as part of the Advanced Computer Games course at the Lodz University of Technology and required the use of Unreal Engine 5 and the game to be culturally engaged with the city of Lodz.</p>
           </section>
 
           <section class="project-section" id="gallery">
@@ -68,14 +68,122 @@
             <h2 class="project-section__title">My Contributions</h2>
 
             <div class="contrib contrib--programming">
+              <p>As a designer, I was more involved in the creative part of the project, but I also implemented some of the mechanics and visuals myself.</p>
               <h3 class="contrib__title">Gameplay Programming</h3>
-              <p>Robiłem gameplay</p>
+              <div class="feature-columns">
+                <ul class="feature-list">
+                  <li>Set camera</li>
+                  <li>Speach bubble shader</li>
+                  <li>Falling coat rack mechanic</li>
+                </ul>
+
+                <ul class="feature-list">
+                  <li>Characters outline marking mechanic</li>
+                  <li>Shining objects on hover</li>
+                  <li>Bug fixes</li>
+                </ul>
+              </div>
             </div>
 
             <div class="contrib contrib--design">
               <h3 class="contrib__title">Game Design</h3>
-              <p>Robiłem design</p>
+              <p>As a designer, I was responsible for coming up with a game idea that matched the requirements, researching the topic, preparing the GDD, ensuring that the vision was consistent and that the project was aligned with the assumptions.</p>
+              <h4>Idea and Reaserch</h4>
+              <p>To tie the game into the theme, I wanted to use the story of the Łódź café "Honoratka," which I had heard about before starting production.</p>
+              <p>As part of my research, I reached for the book <em>"O niezwykłych łódzkich kawiarniach. U Roszka, Fraszka, Honoratka."</em> by Krystyna Ratajska and watched the documentary <em>"Czarodzieje Honoratki"</em> directed by Leopord Rene Nowak. While examining both sources, I noted elements characteristic of this legendary cafe so that I could capture the atmosphere in the game and elements that could translate well into video game mechanics.</p>
+
+              <h4>GDD</h4>
+              <p>After conducting research and writing down the mechanical elements, I put them together into a coherent whole and prepared a GDD for the rest of the team.  The GDD was originally written in Polish and in .md format. It was translated and adapted to HTML for the purposes of this portfolio.</p>
+
+              <section class="doc-section bounce-target" id="gdd">
+
+                <h1>Honoratka</h1>
+                <h2>Gameplay loop</h2>
+                <h3>Big loop</h3>
+                <p>We play through a series of days drawn from different years of <em>Honoratka</em>&#39;s existence. Each day introduces a new mechanic, like each night in <strong><em>FNAF</em></strong>. The player&#39;s goal is to achieve a high customer satisfaction score, which is displayed at the end of the game. Depending on the level of challenge we want to impose on the player, a threshold can be set for this level of satisfaction, but given the nature of the game, it should be rather low or nonexistent. On the final screen, in addition to the accumulated satisfaction, we are shown <em>movies created</em> or <em>newspaper headlines</em> collected in a form similar to achievements, similar to the display of achievements at the end of the game in <strong><em>Waterworks!</em></strong> or <strong><em>Dragon Sweaper</em></strong>.</p>
+                <h3>Small loop</h3>
+                <p>Every day would consist of serving (or not) <em>Honoratka</em> clientele.</p>
+                <ul>
+                  <li>Guests would arrive at the door individually or in pairs. Our role would be to seat them at tables. A guest who isn&#39;t seated for too long, as in <strong><em>Any Restaurant Dash Game</em></strong>, would become upset and leave, lowering our satisfaction level. Only two guests could be at the door at a time, and until they were seated, we wouldn&#39;t be able to seat anyone else.</li>
+                  <li>Guests sitting at the table will use speech bubbles to indicate what they want: coffee or cake. Depending on the complexity of the game, we can extract more characteristic elements from <em>Honoratka</em>&#39;s story, such as Cranberry Juice, Cookies, or Tea. Fulfilling a customer&#39;s request is as simple as clicking on a specific interactive element in <em>Honoratka</em> to take a given delicacy—the Coffee Machine for coffee, the cake display for a cake, etc.—and then dragging it to a specific customer.</li>
+                  <li>However, you can&#39;t mindlessly serve all the guests. In the real Honoratka, Stefania only served customers who came with someone known to her. Therefore, in the game, you have to deliberately ignore new faces until they leave. Serving them will displease the other customers.</li>
+                  <li>
+                    To check if someone is a regular or not, Stefania has a customer album. This is an interactive element of the café. When clicked, it displays a list of regulars, which grows with each customer served correctly. It serves a similar purpose to the terrorist list from <strong><em>Papers Please</em></strong> but is not limited to three characters. Guests can come alone or in pairs, giving us five possibilities:
+                    <ul>
+                      <li>unknown guest - he should be seated and not served</li>
+                      <li>a regular guest - he should be seated and served</li>
+                      <li>unknown guest and regular guest - they must be seated and served, the unknown now becomes regular</li>
+                      <li>two unknown guests - they should be seated and not served</li>
+                      <li>two regular guests - they need to be seated and served</li>
+                    </ul>
+                  </li>
+                  <li>At any time, the player can, like in <strong><em>MineSweeper</em></strong>, mark a customer as worthy of service or not. The player&#39;s mark can be completely incorrect, and the correct regular customer list is always includes an album. The album won&#39;t always contain all rewgular customers, because a new regular guest will only appear in the album after being properly served.</li>
+                  <li>The last element that would require the player&#39;s attention are the wobbly coat rack, which tend to shake and tip over, naturally reducing customer satisfaction. When you see a coat rack start to shake, you should click on it. Similar to <strong><em>FNAF 2</em></strong>, you need to wind up the music box or <strong><em>Guiding Light VR</em></strong>, you need to wind up the generator.</li>
+                </ul>
+                <h2>Clients</h2>
+                <p>The clients would consist of representatives of various professions related to <em>Honoratka</em>, for example:</p>
+                <ul>
+                  <li>Directors</li>
+                  <li>Cinematographers</li>
+                  <li>Actors</li>
+                  <li>Screenwriters</li>
+                  <li>Students</li>
+                  <li>Doctors</li>
+                  <li>Poets</li>
+                  <li>Journalists</li>
+                  <li>etc.</li>
+                </ul>
+                <p>This list can be expanded or reduced as needed.
+                The guests wouldn&#39;t represent actual people, but rather generic representatives of a given profession. However, each would be unique in their own way so that the mechanics of regular and unknown guests could work. I propose a variation of the mechanic in game <strong><em>Westerado Double Barreled</em></strong>, where each cowboy is a combination of several changing clothing elements (size, hat style and color, tie or not, different types of pants, buckle or not on the pants, etc.), while remaining a relatively simple game stylistically. For example, in our case, each profession would have a different appearance base, differing internally. For example, a director might wear a beret or not, have a beret in different colors, the same with a scarf, etc. Screenwriters, on the other hand, would wear different types of glasses, etc. We need to select distinctive visual elements and create enough of them to make the mechanics work. For a given profession, two items of clothing with several color/pattern variations, plus the possibility of none, would be absolutely sufficient. Most importantly, the professions themselves would have a fundamental difference. This can be achieved with clever body design (actors with larger postures, directors with larger bodies, screenwriters with hunched shoulders, etc.).</p>
+                <h2>Movies and Newspapers</h2>
+                <p>The seated guests would secretly (without informing the player) create a movie or something worth publishing in a newspaper. When the internal variable reached a certain level, the movie would be completed, and the player would be rewarded with an information screen similar to the one in <strong><em>Waterworks!</em></strong> regarding the irrigation of Grudziądz. It would be a simple information board containing a poster from the movie, its title, a short description, and a list of the most important creators. As a reward, we could hang the poster (or other artifact obtained this way) in the café. The resulting movies would be the result of the work and combination of a specific group of people at the table. For example, the movie <em>Nóż w Wodzie</em> would be awarded after seating the <strong>director</strong> and <strong>two screenwriters</strong>, which is based on the actual state of the film. If a movie had any high-profile stars, the combination in the game <em>Honoratka</em> would require some <strong>actor</strong>, etc. Newspaper headlines would work in an identical way, informing us not about the movies made, but, for example, about their successes in various competitions or the romantic effects of <em>Honoratka</em> guests. (The book mentions the creation of many influential couples thanks to <em>Honoratka</em>.) At the end of the game, we would be shown which movies and newspaper clips we managed to obtain and which ones we still need, encouraging replay. Progress in creating these movies and newspapers would depend on the guests&#39; overall satisfaction.</p>
+                <h2>A Day in the Year in <em>Honoratka</em></h2>
+                <p>Each day in the game would be time-limited, as indicated by a clock on the wall. The daily system would allow us to introduce new mechanics and gradually teach the player how to play. Additionally, inspired by interesting events in <em>Honoratka</em>&#39;s life, each day could have a twist, adding a breath of fresh air. One day could be distinguished by a clear division of tables and mutual dislike between guests from the <em>Documentalists</em> circles, i.e., Czech cinema lovers, and those from the American cinema circles. Another such twist could be the last day, which would be in the year after 1968, when most of <em>Honoratka</em>&#39;s regulars fled the country. This would be a test of the player&#39;s skills, like the storm in <strong>Frostpunk</strong>, and would upend their habits, because suddenly serving new guests brings more satisfaction than the dissatisfaction of the regulars, of whom there are so few.</p>
+                <h2>Inspiracje</h2>
+                <ul>
+                  <li>Restaurant Dash</li>
+                  <li>FNAF</li>
+                  <li>Is This Seat Taken? </li>
+                  <li>Westerado Double Barreled</li>
+                  <li>Papers Please</li>
+                  <li>6 degrees of sabotage</li>
+                  <li>Waterworks!</li>
+                  <li>Frosptunk</li>
+                  <li>Dragon Sweaper</li>
+                  <li>Mine Sweaper</li>
+                  <li>Moonlighter</li>
+                </ul>
+
+              </section>
+
+              <p>My sketches of what the game could look like were also attached to the GDD.</p>
+
+              <div class="project-gallery project-gallery--portrait project-gallery--centered">
+                <div class="project-gallery__item bounce-target">
+                  <div class="shake-target">
+                    <img src="honoratkaGDD1.png" alt="Game View Sketch" />
+                    <span class="project-hero-media__caption">Game View Sketch.</span>
+                  </div>
+                </div>
+              </div>
+              
+              <p>I believe that:<i>People find it easier to understand how a game should work when they can see what it could look like.</i></p>
+
             </div>
+
+            <p class="contributions-also contributions-also--design">
+              I also contributed to:
+              <span class="card__tag card__tag--gameplay-programming">Gameplay Prog.</span>
+              — to learn more
+              <span class="contributions-also__switch" onclick="document.getElementById('modeToggle').click()">switch to Programming</span>
+            </p>
+
+            <p class="contributions-also contributions-also--programming">
+              I also contributed to:
+              <span class="card__tag card__tag--game-design">Game Design</span>
+              — to learn more
+              <span class="contributions-also__switch" onclick="document.getElementById('modeToggle').click()">switch to Design</span>
+            </p>
             
           </section>
           
@@ -113,6 +221,18 @@
 
           <div class="bounce-target">
             <div class="sidebar-block shake-target">
+              <h3 class="sidebar-block__title">Links</h3>
+              <div class="sidebar-links">
+                <a href="Honoratka GDD.md" class="sidebar-link" target="_blank" rel="noopener">
+                  <span class="sidebar-link__icon"><i class="fa-solid fa-file-text"></i></span>
+                  <span>Download original GDD</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="bounce-target">
+            <div class="sidebar-block shake-target">
               <h3 class="sidebar-block__title">Project Info</h3>
               <dl class="info-list">
                 <div class="info-item">
@@ -121,7 +241,7 @@
                 </div>
                 <div class="info-item">
                   <dt>Genre</dt>
-                  <dd>Logic puzzle / Cozy</dd>
+                  <dd>Casual Simulation / Time Managment</dd>
                 </div>
                 <div class="info-item">
                   <dt>Team size</dt>
